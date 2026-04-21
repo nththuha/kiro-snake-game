@@ -4,23 +4,32 @@ export function HowToPlay() {
   const { t } = useTranslation();
 
   const items = [
-    { icon: '↑↓←→', text: t('guideMove') },
-    { icon: '⎵', text: t('guidePause') },
-    { icon: '🔴', text: t('guideFood') },
-    { icon: '💀', text: t('guideWalls') },
+    { keys: ['↑', '↓', '←', '→'], label: t('guideMove') },
+    { keys: ['␣'], label: t('guidePause') },
   ];
 
   return (
-    <div className="w-full rounded-lg bg-gray-800/60 px-4 py-3">
-      <h3 className="text-sm font-semibold text-gray-300 mb-2">{t('howToPlay')}</h3>
-      <ul className="space-y-1.5">
-        {items.map((item, i) => (
-          <li key={i} className="flex items-center gap-3 text-xs text-gray-400">
-            <span className="w-10 text-center shrink-0 text-sm">{item.icon}</span>
-            <span>{item.text}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="flex w-full items-center justify-center gap-4 flex-wrap">
+      {items.map((item, i) => (
+        <div key={i} className="flex items-center gap-1.5">
+          <div className="flex gap-0.5">
+            {item.keys.map((k) => (
+              <kbd
+                key={k}
+                className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1 rounded text-[10px] font-bold text-slate-400"
+                style={{
+                  background: 'rgba(148, 163, 184, 0.08)',
+                  border: '1px solid rgba(148, 163, 184, 0.15)',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                }}
+              >
+                {k}
+              </kbd>
+            ))}
+          </div>
+          <span className="text-[11px] text-slate-500">{item.label}</span>
+        </div>
+      ))}
     </div>
   );
 }
