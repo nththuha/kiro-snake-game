@@ -7,6 +7,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next'
 
 interface GameOverDialogProps {
   isOpen: boolean
@@ -15,6 +16,8 @@ interface GameOverDialogProps {
 }
 
 export function GameOverDialog({ isOpen, score, onRestart }: GameOverDialogProps) {
+  const { t } = useTranslation()
+
   return (
     <Dialog open={isOpen}>
       <DialogContent
@@ -25,10 +28,10 @@ export function GameOverDialog({ isOpen, score, onRestart }: GameOverDialogProps
       >
         <DialogHeader className="text-center sm:text-center">
           <DialogTitle className="text-2xl font-bold text-white">
-            Game Over
+            {t('gameOver')}
           </DialogTitle>
           <DialogDescription className="text-lg text-gray-300">
-            Final Score: <span className="font-semibold text-white">{score}</span>
+            {t('finalScore')}: <span className="font-semibold text-white">{score}</span>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="sm:justify-center">
@@ -36,7 +39,7 @@ export function GameOverDialog({ isOpen, score, onRestart }: GameOverDialogProps
             onClick={onRestart}
             className="bg-green-600 text-white hover:bg-green-700"
           >
-            Restart
+            {t('restart')}
           </Button>
         </DialogFooter>
       </DialogContent>

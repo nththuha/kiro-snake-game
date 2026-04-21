@@ -1,0 +1,14 @@
+{
+  "score": "Score",
+  "paused": "EN PAUSE",
+  "pause": "Pause",
+  "resume": "Reprendre",
+  "restart": "Recommencer",
+  "gameOver": "Partie terminée",
+  "finalScore": "Score final",
+  "howToPlay": "Comment jouer",
+  "guideMove": "Utilisez les flèches pour diriger le serpent",
+  "guidePause": "Appuyez sur Espace pour pause / reprendre",
+  "guideFood": "Mangez la nourriture rouge pour grandir et marquer",
+  "guideWalls": "Évitez les murs et votre propre queue"
+}

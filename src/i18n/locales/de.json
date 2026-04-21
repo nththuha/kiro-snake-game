@@ -1,0 +1,14 @@
+{
+  "score": "Punkte",
+  "paused": "PAUSIERT",
+  "pause": "Pause",
+  "resume": "Fortsetzen",
+  "restart": "Neustart",
+  "gameOver": "Spiel vorbei",
+  "finalScore": "Endpunktzahl",
+  "howToPlay": "Spielanleitung",
+  "guideMove": "Pfeiltasten zum Steuern der Schlange",
+  "guidePause": "Leertaste zum Pausieren / Fortsetzen",
+  "guideFood": "Friss das rote Futter, um zu wachsen und Punkte zu sammeln",
+  "guideWalls": "Vermeide Wände und deinen eigenen Schwanz"
+}

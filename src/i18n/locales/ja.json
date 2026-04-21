@@ -1,0 +1,14 @@
+{
+  "score": "スコア",
+  "paused": "一時停止中",
+  "pause": "一時停止",
+  "resume": "再開",
+  "restart": "リスタート",
+  "gameOver": "ゲームオーバー",
+  "finalScore": "最終スコア",
+  "howToPlay": "遊び方",
+  "guideMove": "矢印キーでヘビを操作",
+  "guidePause": "スペースキーで一時停止 / 再開",
+  "guideFood": "赤いエサを食べて成長しよう",
+  "guideWalls": "壁と自分の体に当たらないように"
+}

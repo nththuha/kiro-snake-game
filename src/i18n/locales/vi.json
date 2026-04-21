@@ -1,0 +1,14 @@
+{
+  "score": "Điểm",
+  "paused": "TẠM DỪNG",
+  "pause": "Tạm dừng",
+  "resume": "Tiếp tục",
+  "restart": "Chơi lại",
+  "gameOver": "Kết thúc",
+  "finalScore": "Điểm cuối",
+  "howToPlay": "Hướng dẫn",
+  "guideMove": "Dùng phím mũi tên để điều khiển rắn",
+  "guidePause": "Nhấn Space để tạm dừng / tiếp tục",
+  "guideFood": "Ăn thức ăn đỏ để lớn lên và ghi điểm",
+  "guideWalls": "Tránh tường và thân rắn"
+}

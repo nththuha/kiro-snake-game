@@ -16,10 +16,30 @@ import {
   calculateTickInterval,
 } from '@/utils/gameUtils';
 
+const HIGH_SCORE_KEY = 'snake-game-high-score';
+
+function loadHighScore(): number {
+  try {
+    const stored = localStorage.getItem(HIGH_SCORE_KEY);
+    return stored ? Math.max(0, Number(stored)) || 0 : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function saveHighScore(score: number): void {
+  try {
+    localStorage.setItem(HIGH_SCORE_KEY, String(score));
+  } catch {
+    // localStorage unavailable
+  }
+}
+
 export interface UseSnakeGameReturn {
   snake: Position[];
   food: Position;
   score: number;
+  highScore: number;
   gameOver: boolean;
   paused: boolean;
   direction: Direction;

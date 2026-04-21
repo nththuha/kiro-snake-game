@@ -1,0 +1,14 @@
+{
+  "score": "Score",
+  "paused": "PAUSED",
+  "pause": "Pause",
+  "resume": "Resume",
+  "restart": "Restart",
+  "gameOver": "Game Over",
+  "finalScore": "Final Score",
+  "howToPlay": "How to Play",
+  "guideMove": "Use arrow keys to move the snake",
+  "guidePause": "Press Space to pause / resume",
+  "guideFood": "Eat the red food to grow and score",
+  "guideWalls": "Avoid walls and your own tail"
+}
