@@ -13,5 +13,6 @@
   "guideWalls": "Avoid walls and your own tail",
   "best": "Best",
   "newHighScore": "New High Score!",
-  "pressToStart": "Press an arrow key to start"
+  "pressToStart": "Press an arrow key to start",
+  "speed": "Speed"
 }

@@ -9,13 +9,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 
-interface GameOverDialogProps {
+export interface GameOverDialogProps {
   isOpen: boolean
   score: number
+  highScore: number
   onRestart: () => void
 }
 
-export function GameOverDialog({ isOpen, score, onRestart }: GameOverDialogProps) {
+export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOverDialogProps) {
   const { t } = useTranslation()
 
   return (
@@ -32,6 +33,8 @@ export function GameOverDialog({ isOpen, score, onRestart }: GameOverDialogProps
           </DialogTitle>
           <DialogDescription className="text-lg text-muted-foreground">
             {t('finalScore')}: <span className="font-semibold text-foreground">{score}</span>
+            <br />
+            {t('highScore')}: <span className="font-semibold text-foreground">{highScore}</span>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="sm:justify-center">

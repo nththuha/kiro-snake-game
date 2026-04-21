@@ -162,7 +162,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
       }
     };
 
-    const tickInterval = calculateTickInterval(score);
+    const tickInterval = calculateTickInterval(score, speed);
     intervalRef.current = setInterval(tick, tickInterval);
 
     return () => {
@@ -171,7 +171,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
         intervalRef.current = null;
       }
     };
-  }, [gameOver, paused, started, score, boardSize]);
+  }, [gameOver, paused, started, score, speed, boardSize]);
 
   // Keyboard listener
   useEffect(() => {
@@ -215,5 +215,5 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [gameOver, paused, started, togglePause]);
 
-  return { snake, food, score, highScore, gameOver, paused, started, direction, restart, togglePause };
+  return { snake, food, score, highScore, gameOver, paused, started, direction, speed, setSpeed, restart, togglePause };
 }

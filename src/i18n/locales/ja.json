@@ -13,5 +13,6 @@
   "guideWalls": "壁と自分の体に当たらないように",
   "best": "最高記録",
   "newHighScore": "ハイスコア更新！",
-  "pressToStart": "矢印キーを押してスタート"
+  "pressToStart": "矢印キーを押してスタート",
+  "speed": "速度"
 }

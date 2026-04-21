@@ -13,5 +13,6 @@
   "guideWalls": "Évitez les murs et votre propre queue",
   "best": "Meilleur",
   "newHighScore": "Nouveau record !",
-  "pressToStart": "Appuyez sur une flèche pour commencer"
+  "pressToStart": "Appuyez sur une flèche pour commencer",
+  "speed": "Vitesse"
 }

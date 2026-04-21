@@ -5,13 +5,14 @@ import { GameBoard } from '@/components/GameBoard'
 import { GameOverDialog } from '@/components/GameOverDialog'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { HowToPlay } from '@/components/HowToPlay'
+import { SpeedSlider } from '@/components/SpeedSlider'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { BOARD_SIZE } from '@/types'
 
 export function GameCard() {
   const { t } = useTranslation()
-  const { snake, food, score, highScore, gameOver, paused, started, direction, restart, togglePause } = useSnakeGame(BOARD_SIZE)
+  const { snake, food, score, highScore, gameOver, paused, started, direction, speed, setSpeed, restart, togglePause } = useSnakeGame(BOARD_SIZE)
 
   return (
     <Card className="w-full max-w-[min(32rem,90vw)] bg-card border-border shadow-lg">
@@ -48,6 +49,7 @@ export function GameCard() {
             {t('restart')}
           </Button>
         </div>
+        <SpeedSlider speed={speed} onChange={setSpeed} />
         <HowToPlay />
         <GameOverDialog isOpen={gameOver} score={score} highScore={highScore} onRestart={restart} />
       </CardContent>

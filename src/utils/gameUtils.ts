@@ -67,7 +67,9 @@ export function isValidDirectionChange(
   return OPPOSITE_DIRECTIONS[current] !== next;
 }
 
-/** Calculate tick interval based on score: decreases by 5ms every 5 points, minimum 120ms */
-export function calculateTickInterval(score: number): number {
-  return Math.max(120, 150 - Math.floor(score / 5) * 5);
+/** Calculate tick interval based on score and speed (1-10). Higher speed = faster. */
+export function calculateTickInterval(score: number, speed: number = 5): number {
+  // Base interval: speed 1 = 300ms, speed 5 = 150ms, speed 10 = 50ms
+  const baseInterval = 350 - speed * 30;
+  return Math.max(50, baseInterval - Math.floor(score / 5) * 5);
 }
