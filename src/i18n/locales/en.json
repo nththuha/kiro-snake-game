@@ -10,5 +10,8 @@
   "guideMove": "Use arrow keys to move the snake",
   "guidePause": "Press Space to pause / resume",
   "guideFood": "Eat the red food to grow and score",
-  "guideWalls": "Avoid walls and your own tail"
+  "guideWalls": "Avoid walls and your own tail",
+  "best": "Best",
+  "newHighScore": "New High Score!",
+  "pressToStart": "Press an arrow key to start"
 }

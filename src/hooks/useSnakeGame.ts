@@ -42,6 +42,7 @@ export interface UseSnakeGameReturn {
   highScore: number;
   gameOver: boolean;
   paused: boolean;
+  started: boolean;
   direction: Direction;
   restart: () => void;
   togglePause: () => void;
@@ -70,9 +71,11 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
   const [snake, setSnake] = useState<Position[]>(initialSnake);
   const [food, setFood] = useState<Position>(() => spawnFood(initialSnake, boardSize)!);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(loadHighScore);
   const [gameOver, setGameOver] = useState(false);
   const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
   const [paused, setPaused] = useState(false);
+  const [started, setStarted] = useState(false);
 
   const directionRef = useRef<Direction>(INITIAL_DIRECTION);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -90,6 +93,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
     setGameOver(false);
     setDirection(INITIAL_DIRECTION);
     setPaused(false);
+    setStarted(false);
     directionRef.current = INITIAL_DIRECTION;
     stateRef.current = { snake: newSnake, food: newFood, score: 0, gameOver: false };
   }, [boardSize]);
@@ -100,9 +104,17 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
     }
   }, [gameOver]);
 
+  // Update high score when game ends
+  useEffect(() => {
+    if (gameOver && score > highScore) {
+      setHighScore(score);
+      saveHighScore(score);
+    }
+  }, [gameOver, score, highScore]);
+
   // Game loop
   useEffect(() => {
-    if (gameOver || paused) {
+    if (gameOver || paused || !started) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
@@ -159,7 +171,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
         intervalRef.current = null;
       }
     };
-  }, [gameOver, paused, score, boardSize]);
+  }, [gameOver, paused, started, score, boardSize]);
 
   // Keyboard listener
   useEffect(() => {
@@ -186,6 +198,14 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
 
       e.preventDefault();
 
+      if (!started) {
+        if (isValidDirectionChange(INITIAL_DIRECTION, newDirection)) {
+          directionRef.current = newDirection;
+        }
+        setStarted(true);
+        return;
+      }
+
       if (isValidDirectionChange(directionRef.current, newDirection)) {
         directionRef.current = newDirection;
       }
@@ -193,7 +213,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameOver, paused, togglePause]);
+  }, [gameOver, paused, started, togglePause]);
 
-  return { snake, food, score, gameOver, paused, direction, restart, togglePause };
+  return { snake, food, score, highScore, gameOver, paused, started, direction, restart, togglePause };
 }

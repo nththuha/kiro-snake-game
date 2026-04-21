@@ -10,5 +10,8 @@
   "guideMove": "Dùng phím mũi tên để điều khiển rắn",
   "guidePause": "Nhấn Space để tạm dừng / tiếp tục",
   "guideFood": "Ăn thức ăn đỏ để lớn lên và ghi điểm",
-  "guideWalls": "Tránh tường và thân rắn"
+  "guideWalls": "Tránh tường và thân rắn",
+  "best": "Kỷ lục",
+  "newHighScore": "Kỷ lục mới!",
+  "pressToStart": "Nhấn phím mũi tên để bắt đầu"
 }

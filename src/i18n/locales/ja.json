@@ -10,5 +10,8 @@
   "guideMove": "矢印キーでヘビを操作",
   "guidePause": "スペースキーで一時停止 / 再開",
   "guideFood": "赤いエサを食べて成長しよう",
-  "guideWalls": "壁と自分の体に当たらないように"
+  "guideWalls": "壁と自分の体に当たらないように",
+  "best": "最高記録",
+  "newHighScore": "ハイスコア更新！",
+  "pressToStart": "矢印キーを押してスタート"
 }

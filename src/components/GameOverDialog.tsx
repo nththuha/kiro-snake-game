@@ -21,17 +21,17 @@ export function GameOverDialog({ isOpen, score, onRestart }: GameOverDialogProps
   return (
     <Dialog open={isOpen}>
       <DialogContent
-        className="animate-dialog-enter border-gray-700 bg-gray-900 text-gray-100 sm:max-w-md"
+        className="animate-dialog-enter border-border bg-card text-card-foreground sm:max-w-md"
         onPointerDownOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className="text-center sm:text-center">
-          <DialogTitle className="text-2xl font-bold text-white">
+          <DialogTitle className="text-2xl font-bold text-foreground">
             {t('gameOver')}
           </DialogTitle>
-          <DialogDescription className="text-lg text-gray-300">
-            {t('finalScore')}: <span className="font-semibold text-white">{score}</span>
+          <DialogDescription className="text-lg text-muted-foreground">
+            {t('finalScore')}: <span className="font-semibold text-foreground">{score}</span>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="sm:justify-center">
