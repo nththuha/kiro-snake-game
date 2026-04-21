@@ -1,0 +1,161 @@
+import { useState, useEffect, useRef, useCallback } from 'react';
+import type { Position } from '@/types';
+import {
+  Direction,
+  BOARD_SIZE,
+  INITIAL_DIRECTION,
+  INITIAL_SNAKE_LENGTH,
+} from '@/types';
+import {
+  getNextHead,
+  isOutOfBounds,
+  isSelfCollision,
+  positionsEqual,
+  spawnFood,
+  isValidDirectionChange,
+  calculateTickInterval,
+} from '@/utils/gameUtils';
+
+export interface UseSnakeGameReturn {
+  snake: Position[];
+  food: Position;
+  score: number;
+  gameOver: boolean;
+  direction: Direction;
+  restart: () => void;
+}
+
+function createInitialSnake(): Position[] {
+  const snake: Position[] = [];
+  const startRow = 10;
+  const startCol = 9;
+  for (let i = 0; i < INITIAL_SNAKE_LENGTH; i++) {
+    snake.push({ row: startRow, col: startCol - i });
+  }
+  return snake;
+}
+
+interface GameTickState {
+  snake: Position[];
+  food: Position;
+  score: number;
+  gameOver: boolean;
+}
+
+export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn {
+  const initialSnake = createInitialSnake();
+
+  const [snake, setSnake] = useState<Position[]>(initialSnake);
+  const [food, setFood] = useState<Position>(() => spawnFood(initialSnake, boardSize)!);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
+
+  const directionRef = useRef<Direction>(INITIAL_DIRECTION);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const stateRef = useRef<GameTickState>({ snake: initialSnake, food: spawnFood(initialSnake, boardSize)!, score: 0, gameOver: false });
+
+  // Keep stateRef in sync
+  stateRef.current = { snake, food, score, gameOver };
+
+  const restart = useCallback(() => {
+    const newSnake = createInitialSnake();
+    const newFood = spawnFood(newSnake, boardSize)!;
+    setSnake(newSnake);
+    setFood(newFood);
+    setScore(0);
+    setGameOver(false);
+    setDirection(INITIAL_DIRECTION);
+    directionRef.current = INITIAL_DIRECTION;
+    stateRef.current = { snake: newSnake, food: newFood, score: 0, gameOver: false };
+  }, [boardSize]);
+
+  // Game loop
+  useEffect(() => {
+    if (gameOver) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
+    }
+
+    const tick = () => {
+      const { snake: currentSnake, food: currentFood, score: currentScore } = stateRef.current;
+      const currentDirection = directionRef.current;
+      const head = currentSnake[0];
+      const nextHead = getNextHead(head, currentDirection);
+
+      // Wall collision
+      if (isOutOfBounds(nextHead, boardSize)) {
+        setGameOver(true);
+        return;
+      }
+
+      // Self collision
+      if (isSelfCollision(nextHead, currentSnake)) {
+        setGameOver(true);
+        return;
+      }
+
+      // Update displayed direction
+      setDirection(currentDirection);
+
+      // Check food eaten
+      const ateFood = positionsEqual(nextHead, currentFood);
+
+      let newSnake: Position[];
+      if (ateFood) {
+        newSnake = [nextHead, ...currentSnake];
+        const newScore = currentScore + 1;
+        const newFood = spawnFood(newSnake, boardSize) ?? currentFood;
+        setSnake(newSnake);
+        setFood(newFood);
+        setScore(newScore);
+        stateRef.current = { snake: newSnake, food: newFood, score: newScore, gameOver: false };
+      } else {
+        newSnake = [nextHead, ...currentSnake.slice(0, -1)];
+        setSnake(newSnake);
+        stateRef.current = { ...stateRef.current, snake: newSnake };
+      }
+    };
+
+    const tickInterval = calculateTickInterval(score);
+    intervalRef.current = setInterval(tick, tickInterval);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [gameOver, score, boardSize]);
+
+  // Keyboard listener
+  useEffect(() => {
+    if (gameOver) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const keyDirectionMap: Record<string, Direction> = {
+        ArrowUp: Direction.UP,
+        ArrowDown: Direction.DOWN,
+        ArrowLeft: Direction.LEFT,
+        ArrowRight: Direction.RIGHT,
+      };
+
+      const newDirection = keyDirectionMap[e.key];
+      if (!newDirection) return;
+
+      e.preventDefault();
+
+      if (isValidDirectionChange(directionRef.current, newDirection)) {
+        directionRef.current = newDirection;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameOver]);
+
+  return { snake, food, score, gameOver, direction, restart };
+}
