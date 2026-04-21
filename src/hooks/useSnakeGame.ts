@@ -44,6 +44,8 @@ export interface UseSnakeGameReturn {
   paused: boolean;
   started: boolean;
   direction: Direction;
+  speed: number;
+  setSpeed: (speed: number) => void;
   restart: () => void;
   togglePause: () => void;
 }
@@ -76,6 +78,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
   const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
   const [paused, setPaused] = useState(false);
   const [started, setStarted] = useState(false);
+  const [speed, setSpeed] = useState(5);
 
   const directionRef = useRef<Direction>(INITIAL_DIRECTION);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
