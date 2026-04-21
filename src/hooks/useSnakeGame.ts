@@ -21,8 +21,10 @@ export interface UseSnakeGameReturn {
   food: Position;
   score: number;
   gameOver: boolean;
+  paused: boolean;
   direction: Direction;
   restart: () => void;
+  togglePause: () => void;
 }
 
 function createInitialSnake(): Position[] {
@@ -50,6 +52,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
+  const [paused, setPaused] = useState(false);
 
   const directionRef = useRef<Direction>(INITIAL_DIRECTION);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -66,13 +69,20 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
     setScore(0);
     setGameOver(false);
     setDirection(INITIAL_DIRECTION);
+    setPaused(false);
     directionRef.current = INITIAL_DIRECTION;
     stateRef.current = { snake: newSnake, food: newFood, score: 0, gameOver: false };
   }, [boardSize]);
 
+  const togglePause = useCallback(() => {
+    if (!gameOver) {
+      setPaused((prev) => !prev);
+    }
+  }, [gameOver]);
+
   // Game loop
   useEffect(() => {
-    if (gameOver) {
+    if (gameOver || paused) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
@@ -129,13 +139,21 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
         intervalRef.current = null;
       }
     };
-  }, [gameOver, score, boardSize]);
+  }, [gameOver, paused, score, boardSize]);
 
   // Keyboard listener
   useEffect(() => {
     if (gameOver) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        togglePause();
+        return;
+      }
+
+      if (paused) return;
+
       const keyDirectionMap: Record<string, Direction> = {
         ArrowUp: Direction.UP,
         ArrowDown: Direction.DOWN,
@@ -155,7 +173,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameOver]);
+  }, [gameOver, paused, togglePause]);
 
-  return { snake, food, score, gameOver, direction, restart };
+  return { snake, food, score, gameOver, paused, direction, restart, togglePause };
 }
