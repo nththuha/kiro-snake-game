@@ -59,7 +59,7 @@ export function ScoreDisplay({ score, highScore }: ScoreDisplayProps) {
         <Trophy className="w-4 h-4 text-neon-purple opacity-70" />
         <div className="flex flex-col">
           <span className="text-[9px] font-semibold uppercase tracking-widest text-slate-500">
-            {t('best')}
+            {t('bestScore')}
           </span>
           <span
             className="text-lg font-extrabold tabular-nums leading-tight"

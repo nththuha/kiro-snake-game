@@ -36,7 +36,7 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
       >
         <DialogHeader className="text-center sm:text-center items-center gap-3">
           <div className="text-5xl mb-1">{isNewHigh ? '🏆' : '💀'}</div>
-          <DialogTitle className="text-2xl font-extrabold tracking-tight"
+          <DialogTitle className="flex items-baseline justify-center gap-3 text-2xl font-extrabold tracking-tight"
             style={{
               background: 'linear-gradient(135deg, #ef4444, #ec4899)',
               WebkitBackgroundClip: 'text',
@@ -44,6 +44,13 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
             }}
           >
             {t('gameOver')}
+            <span className="text-3xl font-extrabold"
+              style={{
+                background: 'linear-gradient(135deg, #22c55e, #22d3ee)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >{score}</span>
           </DialogTitle>
           <DialogDescription asChild>
             <div className="flex flex-col items-center gap-3 mt-2">
@@ -59,41 +66,22 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
                   {t('newHighScore')}
                 </div>
               )}
-              <div className="flex gap-4 mt-1 w-full">
-                <div className="flex flex-1 flex-col items-center px-5 py-3 rounded-xl min-w-0"
+              <div className="flex flex-1 flex-col items-center px-5 py-3 rounded-xl min-w-0 w-full"
+                style={{
+                  background: 'rgba(168, 85, 247, 0.06)',
+                  border: '1px solid rgba(168, 85, 247, 0.15)',
+                }}
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+                  {t('bestScore')}
+                </span>
+                <span className="text-2xl font-extrabold"
                   style={{
-                    background: 'rgba(34, 197, 94, 0.06)',
-                    border: '1px solid rgba(34, 197, 94, 0.15)',
+                    background: 'linear-gradient(135deg, #a855f7, #ec4899)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
                   }}
-                >
-                  <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-                    {t('finalScore')}
-                  </span>
-                  <span className="text-2xl font-extrabold"
-                    style={{
-                      background: 'linear-gradient(135deg, #22c55e, #22d3ee)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}
-                  >{score}</span>
-                </div>
-                <div className="flex flex-1 flex-col items-center px-5 py-3 rounded-xl min-w-0"
-                  style={{
-                    background: 'rgba(168, 85, 247, 0.06)',
-                    border: '1px solid rgba(168, 85, 247, 0.15)',
-                  }}
-                >
-                  <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-                    {t('best')}
-                  </span>
-                  <span className="text-2xl font-extrabold"
-                    style={{
-                      background: 'linear-gradient(135deg, #a855f7, #ec4899)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}
-                  >{highScore}</span>
-                </div>
+                >{highScore}</span>
               </div>
             </div>
           </DialogDescription>
