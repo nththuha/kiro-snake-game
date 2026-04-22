@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSnakeGame } from '@/hooks/useSnakeGame'
 import { useGameAudio } from '@/hooks/useGameAudio'
+import { useSwipeControls } from '@/hooks/useSwipeControls'
 import { ScoreDisplay } from '@/components/ScoreDisplay'
 import { GameBoard } from '@/components/GameBoard'
 import { GameOverDialog } from '@/components/GameOverDialog'
@@ -9,6 +10,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { HowToPlay } from '@/components/HowToPlay'
 import { SpeedSlider } from '@/components/SpeedSlider'
 import { SoundToggle } from '@/components/SoundToggle'
+import { MobileControls } from '@/components/MobileControls'
 import { BOARD_SIZE } from '@/types'
 import { Play, Pause, RotateCcw } from 'lucide-react'
 
@@ -17,11 +19,19 @@ export function GameCard() {
   const {
     snake, food, score, highScore, gameOver,
     paused, started, direction, speed, setSpeed,
-    restart, togglePause,
+    restart, togglePause, changeDirection,
   } = useSnakeGame(BOARD_SIZE)
 
   const audio = useGameAudio()
   const [muted, setMuted] = useState(true)
+  const boardRef = useRef<HTMLDivElement>(null)
+
+  // Swipe gesture support — scoped to the game board area
+  useSwipeControls({
+    targetRef: boardRef,
+    onSwipe: changeDirection,
+    enabled: !gameOver,
+  })
 
   const handleSoundToggle = useCallback(() => {
     if (muted) {
@@ -55,7 +65,9 @@ export function GameCard() {
       <ScoreDisplay score={score} highScore={highScore} />
 
       {/* Game board */}
-      <div className="relative w-full rounded-xl overflow-hidden"
+      <div
+        ref={boardRef}
+        className="relative w-full rounded-xl overflow-hidden touch-none"
         style={{
           boxShadow: '0 0 30px rgba(34, 197, 94, 0.1), 0 0 60px rgba(34, 211, 238, 0.05), 0 8px 32px rgba(0,0,0,0.4)',
           border: '1px solid rgba(34, 197, 94, 0.15)',
@@ -145,6 +157,9 @@ export function GameCard() {
 
       {/* Guide hints */}
       <HowToPlay />
+
+      {/* On-screen directional buttons for mobile */}
+      <MobileControls onDirection={changeDirection} />
 
       <GameOverDialog isOpen={gameOver} score={score} highScore={highScore} onRestart={restart} />
     </div>

@@ -48,6 +48,8 @@ export interface UseSnakeGameReturn {
   setSpeed: (speed: number) => void;
   restart: () => void;
   togglePause: () => void;
+  /** Programmatic direction change — used by swipe / on-screen buttons */
+  changeDirection: (newDirection: Direction) => void;
 }
 
 function createInitialSnake(): Position[] {
@@ -176,30 +178,10 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
     };
   }, [gameOver, paused, started, score, speed, boardSize]);
 
-  // Keyboard listener
-  useEffect(() => {
-    if (gameOver) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === ' ' || e.code === 'Space') {
-        e.preventDefault();
-        togglePause();
-        return;
-      }
-
-      if (paused) return;
-
-      const keyDirectionMap: Record<string, Direction> = {
-        ArrowUp: Direction.UP,
-        ArrowDown: Direction.DOWN,
-        ArrowLeft: Direction.LEFT,
-        ArrowRight: Direction.RIGHT,
-      };
-
-      const newDirection = keyDirectionMap[e.key];
-      if (!newDirection) return;
-
-      e.preventDefault();
+  // Shared direction-change logic used by keyboard, swipe, and on-screen buttons
+  const changeDirection = useCallback(
+    (newDirection: Direction) => {
+      if (gameOver || paused) return;
 
       if (!started) {
         if (isValidDirectionChange(INITIAL_DIRECTION, newDirection)) {
@@ -212,11 +194,38 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
       if (isValidDirectionChange(directionRef.current, newDirection)) {
         directionRef.current = newDirection;
       }
+    },
+    [gameOver, paused, started],
+  );
+
+  // Keyboard listener
+  useEffect(() => {
+    if (gameOver) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        togglePause();
+        return;
+      }
+
+      const keyDirectionMap: Record<string, Direction> = {
+        ArrowUp: Direction.UP,
+        ArrowDown: Direction.DOWN,
+        ArrowLeft: Direction.LEFT,
+        ArrowRight: Direction.RIGHT,
+      };
+
+      const newDirection = keyDirectionMap[e.key];
+      if (!newDirection) return;
+
+      e.preventDefault();
+      changeDirection(newDirection);
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameOver, paused, started, togglePause]);
+  }, [gameOver, togglePause, changeDirection]);
 
-  return { snake, food, score, highScore, gameOver, paused, started, direction, speed, setSpeed, restart, togglePause };
+  return { snake, food, score, highScore, gameOver, paused, started, direction, speed, setSpeed, restart, togglePause, changeDirection };
 }

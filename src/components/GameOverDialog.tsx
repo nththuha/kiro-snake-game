@@ -23,7 +23,7 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
   return (
     <Dialog open={isOpen}>
       <DialogContent
-        className="animate-dialog-enter sm:max-w-sm"
+        className="animate-dialog-enter sm:max-w-md"
         style={{
           background: 'rgba(15, 23, 42, 0.95)',
           backdropFilter: 'blur(20px)',
@@ -59,8 +59,8 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
                   {t('newHighScore')}
                 </div>
               )}
-              <div className="flex gap-4 mt-1">
-                <div className="flex flex-col items-center px-5 py-3 rounded-xl"
+              <div className="flex gap-4 mt-1 w-full">
+                <div className="flex flex-1 flex-col items-center px-5 py-3 rounded-xl min-w-0"
                   style={{
                     background: 'rgba(34, 197, 94, 0.06)',
                     border: '1px solid rgba(34, 197, 94, 0.15)',
@@ -77,7 +77,7 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
                     }}
                   >{score}</span>
                 </div>
-                <div className="flex flex-col items-center px-5 py-3 rounded-xl"
+                <div className="flex flex-1 flex-col items-center px-5 py-3 rounded-xl min-w-0"
                   style={{
                     background: 'rgba(168, 85, 247, 0.06)',
                     border: '1px solid rgba(168, 85, 247, 0.15)',
