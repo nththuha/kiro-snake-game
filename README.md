@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# 🐍 Snake Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern take on the classic Snake game, built with React, TypeScript, and Tailwind CSS. Features a sleek neon-themed UI with particle effects, smooth animations, and a polished gameplay experience.
 
-Currently, two official plugins are available:
+## 🎮 Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+👉 [Play it live](https://kiro-snake-game-nth.vercel.app/)
 
-## React Compiler
+![Snake Game](src/assets/hero.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **Classic Snake gameplay** on a 20×20 grid with wall and self-collision
+- **Adjustable speed** — control the game pace with a speed slider (1–10)
+- **High score tracking** — persisted in localStorage across sessions
+- **Sound effects** — toggle background audio on/off
+- **Pause / Resume** — press Space or use the on-screen button
+- **Mobile support** — swipe gestures and on-screen directional controls
+- **Multilingual** — supports 6 languages:
+  - 🇬🇧 English
+  - 🇻🇳 Tiếng Việt
+  - 🇩🇪 Deutsch
+  - 🇨🇳 中文
+  - 🇫🇷 Français
+  - 🇯🇵 日本語
+- **Particle background** and ambient glow effects for a neon aesthetic
+- **Game Over dialog** with final score and high score display
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/) — fast dev server and build tool
+- [Tailwind CSS v4](https://tailwindcss.com/) — utility-first styling
+- [Radix UI](https://www.radix-ui.com/) — accessible dialog primitives
+- [Lucide React](https://lucide.dev/) — icons
+- [i18next](https://www.i18next.com/) + [react-i18next](https://react.i18next.com/) — internationalization
+- [Vitest](https://vitest.dev/) — unit testing
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js ≥ 18
+- Yarn (or npm)
+
+### Install & Run
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/snake-game.git
+cd snake-game
+
+# Install dependencies
+yarn install
+
+# Start the dev server
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Build for Production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn build
 ```
+
+Output goes to the `dist/` folder.
+
+### Run Tests
+
+```bash
+yarn test
+```
+
+## 🎮 Controls
+
+| Action        | Keyboard       | Mobile            |
+| ------------- | -------------- | ----------------- |
+| Move          | Arrow keys     | Swipe / D-pad     |
+| Pause / Resume| Space          | Pause button      |
+| Restart       | —              | Restart button     |
+
+## 📁 Project Structure
+
+```
+src/
+├── components/     # UI components (GameBoard, GameCard, ScoreDisplay, etc.)
+├── hooks/          # Custom hooks (useSnakeGame, useGameAudio, useSwipeControls)
+├── i18n/           # Internationalization config and locale files
+├── types/          # TypeScript type definitions and game constants
+├── utils/          # Game logic utilities
+└── App.tsx         # Root component
+```
+
+## 📄 License
+
+MIT
