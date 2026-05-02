@@ -10,9 +10,9 @@ const btnBase =
   'flex items-center justify-center w-14 h-14 rounded-xl active:scale-90 transition-transform duration-100 select-none touch-manipulation';
 
 const btnStyle: React.CSSProperties = {
-  background: 'rgba(34, 211, 238, 0.08)',
-  border: '1px solid rgba(34, 211, 238, 0.2)',
-  color: '#22d3ee',
+  background: 'var(--surface-cyan-subtle)',
+  border: '1px solid var(--surface-cyan-strong)',
+  color: 'var(--neon-cyan)',
   WebkitTapHighlightColor: 'transparent',
 };
 

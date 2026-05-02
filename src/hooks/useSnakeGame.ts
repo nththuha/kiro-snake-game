@@ -83,6 +83,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
   const [speed, setSpeed] = useState(5);
 
   const directionRef = useRef<Direction>(INITIAL_DIRECTION);
+  const directionQueueRef = useRef<Direction[]>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const stateRef = useRef<GameTickState>({ snake: initialSnake, food: spawnFood(initialSnake, boardSize)!, score: 0, gameOver: false });
 
@@ -100,6 +101,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
     setPaused(false);
     setStarted(false);
     directionRef.current = INITIAL_DIRECTION;
+    directionQueueRef.current = [];
     stateRef.current = { snake: newSnake, food: newFood, score: 0, gameOver: false };
   }, [boardSize]);
 
@@ -129,6 +131,17 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
 
     const tick = () => {
       const { snake: currentSnake, food: currentFood, score: currentScore } = stateRef.current;
+
+      // Drain the direction queue: apply the first valid queued direction
+      const queue = directionQueueRef.current;
+      while (queue.length > 0) {
+        const candidate = queue.shift()!;
+        if (isValidDirectionChange(directionRef.current, candidate)) {
+          directionRef.current = candidate;
+          break;
+        }
+      }
+
       const currentDirection = directionRef.current;
       const head = currentSnake[0];
       const nextHead = wrapPosition(getNextHead(head, currentDirection), boardSize);
@@ -180,13 +193,21 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
       if (!started) {
         if (isValidDirectionChange(INITIAL_DIRECTION, newDirection)) {
           directionRef.current = newDirection;
+          directionQueueRef.current = [];
         }
         setStarted(true);
         return;
       }
 
-      if (isValidDirectionChange(directionRef.current, newDirection)) {
-        directionRef.current = newDirection;
+      // Determine the effective current direction (last queued or actual)
+      const queue = directionQueueRef.current;
+      const effective = queue.length > 0 ? queue[queue.length - 1] : directionRef.current;
+
+      if (isValidDirectionChange(effective, newDirection)) {
+        // Cap queue at 2 to avoid buffering too many moves
+        if (queue.length < 2) {
+          queue.push(newDirection);
+        }
       }
     },
     [gameOver, paused, started],

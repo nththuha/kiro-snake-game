@@ -26,8 +26,8 @@ export function ScoreDisplay({ score, highScore }: ScoreDisplayProps) {
     <div className="flex w-full gap-2.5">
       <div className="flex-1 flex items-center gap-2.5 rounded-lg px-3 py-2"
         style={{
-          background: 'rgba(34, 197, 94, 0.06)',
-          border: '1px solid rgba(34, 197, 94, 0.15)',
+          background: 'var(--surface-green-subtle)',
+          border: '1px solid var(--surface-green-medium)',
           backdropFilter: 'blur(12px)',
         }}
       >
@@ -39,7 +39,7 @@ export function ScoreDisplay({ score, highScore }: ScoreDisplayProps) {
           <span
             className={`text-lg font-extrabold tabular-nums leading-tight ${pop ? 'animate-score-pop' : ''}`}
             style={{
-              background: 'linear-gradient(135deg, #22c55e, #22d3ee)',
+              background: 'var(--gradient-green-cyan)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
@@ -51,8 +51,8 @@ export function ScoreDisplay({ score, highScore }: ScoreDisplayProps) {
 
       <div className="flex-1 flex items-center gap-2.5 rounded-lg px-3 py-2"
         style={{
-          background: 'rgba(168, 85, 247, 0.06)',
-          border: '1px solid rgba(168, 85, 247, 0.15)',
+          background: 'var(--surface-purple-subtle)',
+          border: '1px solid var(--surface-purple-medium)',
           backdropFilter: 'blur(12px)',
         }}
       >
@@ -64,7 +64,7 @@ export function ScoreDisplay({ score, highScore }: ScoreDisplayProps) {
           <span
             className="text-lg font-extrabold tabular-nums leading-tight"
             style={{
-              background: 'linear-gradient(135deg, #a855f7, #ec4899)',
+              background: 'var(--gradient-purple-pink)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}

@@ -17,15 +17,14 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(12px)' }}
+      style={{ background: 'var(--surface-dialog)', backdropFilter: 'blur(12px)' }}
     >
       <div
         className="animate-dialog-enter flex flex-col items-center gap-5 w-full max-w-sm px-6 py-8 rounded-2xl"
         style={{
-          background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.97) 0%, rgba(10, 15, 30, 0.99) 100%)',
-          border: '1px solid rgba(148, 163, 184, 0.08)',
-          boxShadow:
-            '0 0 60px rgba(168, 85, 247, 0.08), 0 0 120px rgba(34, 211, 238, 0.04), 0 32px 64px rgba(0,0,0,0.6)',
+          background: 'var(--gradient-dialog)',
+          border: '1px solid var(--surface-subtle-border-dim)',
+          boxShadow: 'var(--shadow-dialog)',
         }}
       >
         {/* Header */}
@@ -34,7 +33,7 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
           <h2
             className="text-2xl font-extrabold tracking-tight"
             style={{
-              background: 'linear-gradient(135deg, #ef4444, #ec4899)',
+              background: 'var(--gradient-red-pink)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
@@ -45,9 +44,9 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
             <div
               className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold animate-glow-pulse"
               style={{
-                background: 'rgba(234, 179, 8, 0.1)',
-                border: '1px solid rgba(234, 179, 8, 0.3)',
-                color: '#eab308',
+                background: 'var(--surface-yellow-light)',
+                border: '1px solid var(--surface-yellow-border)',
+                color: 'var(--neon-yellow)',
               }}
             >
               <Crown className="w-3.5 h-3.5" />
@@ -62,21 +61,19 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
           <div
             className="flex-1 flex flex-col items-center gap-2 p-4 rounded-xl relative overflow-hidden"
             style={{
-              background: 'rgba(34, 197, 94, 0.05)',
-              border: '1px solid rgba(34, 197, 94, 0.15)',
+              background: 'var(--surface-green-faint)',
+              border: '1px solid var(--surface-green-medium)',
             }}
           >
             <div
               className="absolute inset-0 opacity-20 pointer-events-none"
-              style={{
-                background: 'radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.15), transparent 70%)',
-              }}
+              style={{ background: 'var(--radial-green)' }}
             />
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{
-                background: 'rgba(34, 197, 94, 0.1)',
-                border: '1px solid rgba(34, 197, 94, 0.2)',
+                background: 'var(--surface-green-light)',
+                border: '1px solid var(--surface-green-strong)',
               }}
             >
               <Zap className="w-5 h-5 text-neon-green" />
@@ -87,7 +84,7 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
             <span
               className="text-3xl font-black tabular-nums leading-none"
               style={{
-                background: 'linear-gradient(135deg, #22c55e, #22d3ee)',
+                background: 'var(--gradient-green-cyan)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -100,28 +97,26 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
           <div
             className="flex-1 flex flex-col items-center gap-2 p-4 rounded-xl relative overflow-hidden"
             style={{
-              background: 'rgba(168, 85, 247, 0.05)',
+              background: isNewHigh ? 'var(--surface-yellow-light)' : 'var(--surface-purple-faint)',
               border: isNewHigh
-                ? '1px solid rgba(234, 179, 8, 0.3)'
-                : '1px solid rgba(168, 85, 247, 0.15)',
-              boxShadow: isNewHigh ? '0 0 20px rgba(234, 179, 8, 0.08)' : 'none',
+                ? '1px solid var(--surface-yellow-border)'
+                : '1px solid var(--surface-purple-medium)',
+              boxShadow: isNewHigh ? '0 0 20px var(--surface-yellow-glow)' : 'none',
             }}
           >
             <div
               className="absolute inset-0 opacity-20 pointer-events-none"
               style={{
-                background: isNewHigh
-                  ? 'radial-gradient(circle at 50% 0%, rgba(234, 179, 8, 0.15), transparent 70%)'
-                  : 'radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15), transparent 70%)',
+                background: isNewHigh ? 'var(--radial-yellow)' : 'var(--radial-purple)',
               }}
             />
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{
-                background: isNewHigh ? 'rgba(234, 179, 8, 0.1)' : 'rgba(168, 85, 247, 0.1)',
+                background: isNewHigh ? 'var(--surface-yellow-light)' : 'var(--surface-purple-light)',
                 border: isNewHigh
-                  ? '1px solid rgba(234, 179, 8, 0.25)'
-                  : '1px solid rgba(168, 85, 247, 0.2)',
+                  ? '1px solid var(--surface-yellow-border-light)'
+                  : '1px solid var(--surface-purple-strong)',
               }}
             >
               <Trophy className={`w-5 h-5 ${isNewHigh ? 'text-yellow-500' : 'text-neon-purple'}`} />
@@ -132,9 +127,7 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
             <span
               className="text-3xl font-black tabular-nums leading-none"
               style={{
-                background: isNewHigh
-                  ? 'linear-gradient(135deg, #eab308, #f59e0b)'
-                  : 'linear-gradient(135deg, #a855f7, #ec4899)',
+                background: isNewHigh ? 'var(--gradient-yellow)' : 'var(--gradient-purple-pink)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -149,19 +142,17 @@ export function GameOverDialog({ isOpen, score, highScore, onRestart }: GameOver
           onClick={onRestart}
           className="flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer"
           style={{
-            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 211, 238, 0.15))',
-            border: '1px solid rgba(34, 197, 94, 0.25)',
-            color: '#22c55e',
+            background: 'var(--gradient-green-cyan-surface)',
+            border: '1px solid var(--surface-green-hover)',
+            color: 'var(--neon-green)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background =
-              'linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(34, 211, 238, 0.25))'
-            e.currentTarget.style.boxShadow = '0 0 30px rgba(34, 197, 94, 0.2)'
+            e.currentTarget.style.background = 'var(--gradient-green-cyan-surface-hover)'
+            e.currentTarget.style.boxShadow = '0 0 30px var(--surface-green-strong)'
             e.currentTarget.style.transform = 'translateY(-1px)'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background =
-              'linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 211, 238, 0.15))'
+            e.currentTarget.style.background = 'var(--gradient-green-cyan-surface)'
             e.currentTarget.style.boxShadow = 'none'
             e.currentTarget.style.transform = 'translateY(0)'
           }}

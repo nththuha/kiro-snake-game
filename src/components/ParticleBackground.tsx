@@ -1,5 +1,12 @@
 import { useMemo } from 'react'
 
+const PARTICLE_COLORS = [
+  'var(--neon-green)',
+  'var(--neon-cyan)',
+  'var(--neon-purple)',
+  'var(--neon-blue)',
+]
+
 export function ParticleBackground() {
   const particles = useMemo(() =>
     Array.from({ length: 30 }, (_, i) => ({
@@ -8,7 +15,7 @@ export function ParticleBackground() {
       size: Math.random() * 3 + 1,
       duration: Math.random() * 15 + 10,
       delay: Math.random() * 10,
-      color: ['#22c55e', '#22d3ee', '#a855f7', '#3b82f6'][Math.floor(Math.random() * 4)],
+      color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
     })), [])
 
   return (

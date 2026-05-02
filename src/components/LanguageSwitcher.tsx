@@ -8,8 +8,8 @@ export function LanguageSwitcher() {
   return (
     <div className="relative flex items-center gap-1.5 rounded-lg px-2.5 py-1.5"
       style={{
-        background: 'rgba(30, 41, 59, 0.5)',
-        border: '1px solid rgba(148, 163, 184, 0.1)',
+        background: 'var(--surface-muted-strong)',
+        border: '1px solid var(--surface-subtle-border-light)',
       }}
     >
       <Globe className="w-3.5 h-3.5 text-slate-500" />
@@ -20,7 +20,7 @@ export function LanguageSwitcher() {
         style={{ backgroundImage: 'none' }}
       >
         {LANGUAGES.map(({ code, label }) => (
-          <option key={code} value={code} className="bg-[#1e293b] text-slate-300">
+          <option key={code} value={code} className="bg-muted text-slate-300">
             {label}
           </option>
         ))}

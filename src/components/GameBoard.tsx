@@ -42,23 +42,23 @@ function SnakeEyes({ direction }: { direction: Direction }) {
         <div className="absolute rounded-full"
           style={{
             width: '28%', height: '28%', top: '14%', right: '14%',
-            background: 'radial-gradient(circle, #fff 40%, rgba(255,255,255,0.6))',
-            boxShadow: '0 0 4px rgba(255,255,255,0.5)',
+            background: 'var(--eye-white)',
+            boxShadow: 'var(--eye-glow)',
           }}
         >
-          <div className="absolute rounded-full bg-[#0f172a]"
-            style={{ width: '45%', height: '45%', top: '28%', right: '15%' }}
+          <div className="absolute rounded-full"
+            style={{ width: '45%', height: '45%', top: '28%', right: '15%', background: 'var(--background)' }}
           />
         </div>
         <div className="absolute rounded-full"
           style={{
             width: '28%', height: '28%', bottom: '14%', right: '14%',
-            background: 'radial-gradient(circle, #fff 40%, rgba(255,255,255,0.6))',
-            boxShadow: '0 0 4px rgba(255,255,255,0.5)',
+            background: 'var(--eye-white)',
+            boxShadow: 'var(--eye-glow)',
           }}
         >
-          <div className="absolute rounded-full bg-[#0f172a]"
-            style={{ width: '45%', height: '45%', top: '28%', right: '15%' }}
+          <div className="absolute rounded-full"
+            style={{ width: '45%', height: '45%', top: '28%', right: '15%', background: 'var(--background)' }}
           />
         </div>
       </div>
@@ -111,9 +111,9 @@ function GameBoardInner({ snake, food, boardSize, direction }: GameBoardProps) {
         };
       } else {
         style = {
-          background: 'rgba(30, 41, 59, 0.3)',
+          background: 'var(--surface-muted)',
           borderRadius: '15%',
-          border: '1px solid rgba(148, 163, 184, 0.04)',
+          border: '1px solid var(--surface-subtle-border-faint)',
         };
       }
 
@@ -126,8 +126,8 @@ function GameBoardInner({ snake, food, boardSize, direction }: GameBoardProps) {
               style={{
                 width: '65%',
                 height: '65%',
-                background: 'radial-gradient(circle at 35% 35%, #fb7185, #ec4899, #be185d)',
-                boxShadow: '0 0 10px rgba(236, 72, 153, 0.6), 0 0 20px rgba(236, 72, 153, 0.3), inset 0 -2px 4px rgba(0,0,0,0.2)',
+                background: 'var(--gradient-food)',
+                boxShadow: 'var(--shadow-food)',
               }}
             />
           )}
@@ -141,7 +141,7 @@ function GameBoardInner({ snake, food, boardSize, direction }: GameBoardProps) {
       className="grid w-full gap-[1px] p-1"
       style={{
         gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
-        background: 'rgba(15, 23, 42, 0.9)',
+        background: 'var(--surface-dark)',
       }}
     >
       {cells}

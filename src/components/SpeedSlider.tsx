@@ -12,8 +12,8 @@ export function SpeedSlider({ speed, onChange }: SpeedSliderProps) {
   return (
     <div className="flex items-center gap-2 rounded-lg px-3 py-2"
       style={{
-        background: 'rgba(30, 41, 59, 0.3)',
-        border: '1px solid rgba(148, 163, 184, 0.08)',
+        background: 'var(--surface-muted)',
+        border: '1px solid var(--surface-subtle-border-dim)',
       }}
     >
       <Gauge className="w-3.5 h-3.5 text-neon-cyan opacity-60 shrink-0" />
@@ -32,7 +32,7 @@ export function SpeedSlider({ speed, onChange }: SpeedSliderProps) {
       />
       <span className="text-xs font-bold tabular-nums min-w-[1rem] text-center"
         style={{
-          background: 'linear-gradient(135deg, #22c55e, #22d3ee)',
+          background: 'var(--gradient-green-cyan)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}

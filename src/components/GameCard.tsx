@@ -48,7 +48,7 @@ export function GameCard() {
       <div className="flex w-full items-center justify-between">
         <h1 className="text-xl font-extrabold tracking-tight"
           style={{
-            background: 'linear-gradient(135deg, #22c55e, #22d3ee)',
+            background: 'var(--gradient-green-cyan)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}
@@ -69,15 +69,15 @@ export function GameCard() {
         ref={boardRef}
         className="relative w-full rounded-xl overflow-hidden touch-none"
         style={{
-          boxShadow: '0 0 30px rgba(34, 197, 94, 0.1), 0 0 60px rgba(34, 211, 238, 0.05), 0 8px 32px rgba(0,0,0,0.4)',
-          border: '1px solid rgba(34, 197, 94, 0.15)',
+          boxShadow: 'var(--shadow-board)',
+          border: '1px solid var(--surface-green-medium)',
         }}
       >
         <GameBoard snake={snake} food={food} boardSize={BOARD_SIZE} direction={direction} />
 
         {!started && !gameOver && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl"
-            style={{ background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(4px)' }}
+            style={{ background: 'var(--surface-overlay)', backdropFilter: 'blur(4px)' }}
           >
             <div className="text-3xl animate-float">🎮</div>
             <span className="text-sm font-semibold text-slate-300 text-center px-6">
@@ -86,7 +86,7 @@ export function GameCard() {
             <div className="flex gap-1 mt-0.5">
               {['↑', '↓', '←', '→'].map((k) => (
                 <kbd key={k} className="w-7 h-7 flex items-center justify-center rounded text-[10px] font-bold text-slate-300"
-                  style={{ background: 'rgba(148, 163, 184, 0.15)', border: '1px solid rgba(148, 163, 184, 0.2)' }}
+                  style={{ background: 'var(--surface-subtle-border)', border: '1px solid var(--surface-subtle-strong)' }}
                 >{k}</kbd>
               ))}
             </div>
@@ -95,7 +95,7 @@ export function GameCard() {
 
         {paused && started && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 rounded-xl"
-            style={{ background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(4px)' }}
+            style={{ background: 'var(--surface-overlay)', backdropFilter: 'blur(4px)' }}
           >
             <Pause className="w-8 h-8 text-neon-cyan opacity-80" />
             <span className="text-lg font-bold text-slate-200 tracking-widest">{t('paused')}</span>
@@ -110,18 +110,18 @@ export function GameCard() {
           disabled={gameOver || !started}
           className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
           style={{
-            background: 'rgba(34, 211, 238, 0.1)',
-            border: '1px solid rgba(34, 211, 238, 0.25)',
-            color: '#22d3ee',
+            background: 'var(--surface-cyan-light)',
+            border: '1px solid var(--surface-cyan-hover)',
+            color: 'var(--neon-cyan)',
           }}
           onMouseEnter={(e) => {
             if (!e.currentTarget.disabled) {
-              e.currentTarget.style.background = 'rgba(34, 211, 238, 0.2)'
-              e.currentTarget.style.boxShadow = '0 0 20px rgba(34, 211, 238, 0.2)'
+              e.currentTarget.style.background = 'var(--surface-cyan-strong)'
+              e.currentTarget.style.boxShadow = '0 0 20px var(--surface-cyan-strong)'
             }
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(34, 211, 238, 0.1)'
+            e.currentTarget.style.background = 'var(--surface-cyan-light)'
             e.currentTarget.style.boxShadow = 'none'
           }}
         >
@@ -133,16 +133,16 @@ export function GameCard() {
           onClick={restart}
           className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 shrink-0"
           style={{
-            background: 'rgba(34, 197, 94, 0.1)',
-            border: '1px solid rgba(34, 197, 94, 0.25)',
-            color: '#22c55e',
+            background: 'var(--surface-green-light)',
+            border: '1px solid var(--surface-green-hover)',
+            color: 'var(--neon-green)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(34, 197, 94, 0.2)'
-            e.currentTarget.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.2)'
+            e.currentTarget.style.background = 'var(--surface-green-strong)'
+            e.currentTarget.style.boxShadow = '0 0 20px var(--surface-green-strong)'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(34, 197, 94, 0.1)'
+            e.currentTarget.style.background = 'var(--surface-green-light)'
             e.currentTarget.style.boxShadow = 'none'
           }}
         >

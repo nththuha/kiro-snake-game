@@ -11,9 +11,9 @@ export function SoundToggle({ muted, onToggle }: SoundToggleProps) {
       onClick={onToggle}
       className="flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-200"
       style={{
-        background: muted ? 'rgba(30, 41, 59, 0.5)' : 'rgba(34, 211, 238, 0.1)',
-        border: `1px solid ${muted ? 'rgba(148, 163, 184, 0.1)' : 'rgba(34, 211, 238, 0.25)'}`,
-        boxShadow: muted ? 'none' : '0 0 10px rgba(34, 211, 238, 0.15)',
+        background: muted ? 'var(--surface-muted-strong)' : 'var(--surface-cyan-light)',
+        border: `1px solid ${muted ? 'var(--surface-subtle-border-light)' : 'var(--surface-cyan-hover)'}`,
+        boxShadow: muted ? 'none' : '0 0 10px var(--surface-cyan-medium)',
       }}
       aria-label={muted ? 'Unmute sound' : 'Mute sound'}
     >
