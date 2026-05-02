@@ -24,6 +24,14 @@ export function isOutOfBounds(position: Position, boardSize: number): boolean {
   );
 }
 
+/** Wrap a position around the board so the snake passes through walls */
+export function wrapPosition(position: Position, boardSize: number): Position {
+  return {
+    row: ((position.row % boardSize) + boardSize) % boardSize,
+    col: ((position.col % boardSize) + boardSize) % boardSize,
+  };
+}
+
 /** Check if a position collides with any segment in the snake body */
 export function isSelfCollision(head: Position, body: Position[]): boolean {
   return body.some((segment) => positionsEqual(head, segment));

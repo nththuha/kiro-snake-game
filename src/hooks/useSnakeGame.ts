@@ -8,7 +8,7 @@ import {
 } from '@/types';
 import {
   getNextHead,
-  isOutOfBounds,
+  wrapPosition,
   isSelfCollision,
   positionsEqual,
   spawnFood,
@@ -131,13 +131,7 @@ export function useSnakeGame(boardSize: number = BOARD_SIZE): UseSnakeGameReturn
       const { snake: currentSnake, food: currentFood, score: currentScore } = stateRef.current;
       const currentDirection = directionRef.current;
       const head = currentSnake[0];
-      const nextHead = getNextHead(head, currentDirection);
-
-      // Wall collision
-      if (isOutOfBounds(nextHead, boardSize)) {
-        setGameOver(true);
-        return;
-      }
+      const nextHead = wrapPosition(getNextHead(head, currentDirection), boardSize);
 
       // Self collision
       if (isSelfCollision(nextHead, currentSnake)) {
